@@ -1,0 +1,78 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{latexsym, epsfig, ulem, cancel, multicol, hyperref}
+\usepackage{graphicx, tikz, subfigure,pgfplots}
+\usepackage{blindtext}
+\usepackage[a4paper, total={6in, 8in}]{geometry}
+\setlength{\parindent}{0pt}
+\usepackage{multirow}
+\usepackage{mathtools}
+\pgfplotsset{width=10cm,compat=1.9}
+\usepackage{amsmath, amssymb, amsthm, graphicx, hyperref}
+\usepackage{enumerate}
+\usepackage{fancyhdr}
+\usepackage{multirow, multicol}
+\usepackage{tikz}
+\usepackage{comment}
+\setlength{\parskip}{1ex}
+
+\newcommand{\T}[0]{\top}
+\newcommand{\F}[0]{\bot}
+\newcommand{\liminfty}[1]{\lim_{#1 \to \infty}}
+\newcommand{\limzero}[1]{\lim_{#1 \to 0}}
+\newcommand{\limto}[1]{\lim_{#1}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\odd}[0]{\mathbb{Z} - 2\mathbb{Z}}
+\newcommand{\lineint}[1]{\int_{#1}}
+\newcommand{\pypx}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\divg}{\nabla \cdot}
+\newcommand{\curl}{\nabla \times}
+\newcommand{\dydx}[2]{\frac{d #1}{d #2}}
+\newcommand{\sqbkt}[1]{\left[ #1 \right]}
+\newcommand{\paren}[1]{\left( #1 \right)}
+\newcommand{\tribkt}[1]{\left< #1 \right>}
+\newcommand{\abso}[1]{\left|#1 \right|}
+\newcommand{\zero}{\{0\}}
+\newcommand{\then}{\rightarrow}
+\newcommand{\nonneg}{\Z^+ \cup \{0\}}
+\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+\newcommand{\union}[2]{\bigcup_{#1}^{#2}}
+\newcommand{\inter}[2]{\bigcap_{#1}^{#2}}
+\newcommand{\openclose}[1]{\left( #1 \right]}
+\newcommand{\closeopen}[1]{\left[ #1 \right)}
+\newcommand{\compo}[2]{#1 e^{i #2}}
+\newcommand{\laplase}{\bigtriangleup}
+
+\newtheorem*{remark}{Remark}
+\title{\textbf{Applied PDE Assignment 1}}
+\author{Dennis Li}
+\begin{document}
+\maketitle
+
+
+\begin{enumerate}
+    \item[5.1.2] Consider a metal rod \( 0 < x < l \), insulated along its sides but not at its ends, which is initially at temperature \( = 1 \). Suddenly both ends are plunged into a bath of temperature \( = 0 \). Write the differential equation, boundary conditions, and initial condition. Write the formula for the temperature \( u(x, t) \) at later times. In this problem, assume the infinite series expansion:
+    
+    \[
+    1 = \frac{4}{\pi} \left( \sin\left( \frac{\pi x}{l} \right) + \frac{1}{3} \sin\left( \frac{3 \pi x}{l} \right) + \frac{1}{5} \sin\left( \frac{5 \pi x}{l} \right) + \cdots \right)
+    \]
+
+    \item[5.1.3] A quantum-mechanical particle on the line with an infinite potential outside the interval \( (0, l) \) (a "particle in a box") is given by Schrödinger's equation \( u_t = i u_{xx} \) on \( (0, l) \) with Dirichlet conditions at the ends. Separate the variables and use (8) to find its representation as a series.
+
+
+
+
+
+
+    
+\end{enumerate}
+
+
+
+
+
+\end{document}

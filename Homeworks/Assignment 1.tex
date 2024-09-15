@@ -1,0 +1,215 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{latexsym, epsfig, ulem, cancel, multicol, hyperref}
+\usepackage{graphicx, tikz, subfigure,pgfplots}
+\usepackage{blindtext}
+\usepackage[a4paper, total={6in, 8in}]{geometry}
+\setlength{\parindent}{0pt}
+\usepackage{multirow}
+\usepackage{mathtools}
+\pgfplotsset{width=10cm,compat=1.9}
+\usepackage{amsmath, amssymb, amsthm, graphicx, hyperref}
+\usepackage{enumerate}
+\usepackage{fancyhdr}
+\usepackage{multirow, multicol}
+\usepackage{tikz}
+\usepackage{comment}
+\setlength{\parskip}{1ex}
+
+\newcommand{\T}[0]{\top}
+\newcommand{\F}[0]{\bot}
+\newcommand{\liminfty}[1]{\lim_{#1 \to \infty}}
+\newcommand{\limzero}[1]{\lim_{#1 \to 0}}
+\newcommand{\limto}[1]{\lim_{#1}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\odd}[0]{\mathbb{Z} - 2\mathbb{Z}}
+\newcommand{\lineint}[1]{\int_{#1}}
+\newcommand{\pypx}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\divg}{\nabla \cdot}
+\newcommand{\curl}{\nabla \times}
+\newcommand{\dydx}[2]{\frac{d #1}{d #2}}
+\newcommand{\sqbkt}[1]{\left[ #1 \right]}
+\newcommand{\paren}[1]{\left( #1 \right)}
+\newcommand{\tribkt}[1]{\left< #1 \right>}
+\newcommand{\abso}[1]{\left|#1 \right|}
+\newcommand{\zero}{\{0\}}
+\newcommand{\then}{\rightarrow}
+\newcommand{\nonneg}{\Z^+ \cup \{0\}}
+\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+\newcommand{\union}[2]{\bigcup_{#1}^{#2}}
+\newcommand{\inter}[2]{\bigcap_{#1}^{#2}}
+\newcommand{\openclose}[1]{\left( #1 \right]}
+\newcommand{\closeopen}[1]{\left[ #1 \right)}
+\newcommand{\compo}[2]{#1 e^{i #2}}
+\newcommand{\laplase}{\bigtriangleup}
+
+\newtheorem*{remark}{Remark}
+\title{\textbf{Applied PDE Assignment 1}}
+\author{Dennis Li}
+\begin{document}
+\maketitle
+\section{Section 1.1}
+2. Which of the following operators are linear?
+\begin{itemize}
+    \item[(a)] $\mathcal{L} u = u_x + x u_y$ 
+    
+    This is linear.
+    \item[(b)] $\mathcal{L} u = u_x + u u_y$ 
+    
+    This is not linear.
+    \item[(c)] $\mathcal{L} u = u_x + u_y^2$ 
+    
+    This is not linear.
+    \item[(d)] $\mathcal{L} u = u_x + u_y + 1$ 
+    
+    This is linear but not homogeneous.
+    \item[(e)] $\mathcal{L} u = \sqrt{1 + x^2} (\cos y) u_x + u_{xy} - [\arctan(x/y)] u$ 
+
+    This is Linear.
+\end{itemize}
+
+3. For each of the following equations, state the order and whether it is nonlinear, linear inhomogeneous, or linear homogeneous; provide reasons.
+\begin{itemize}
+    \item[(a)] $u_t - u_{xx} + 1 = 0$
+
+    This is linear but not homogeneous, since the unknown variable $u$ is raised the power of 1, but $u=0$ is not a solution.
+    \item[(b)] $u_t - u_{xx} + xu = 0$
+
+    This is linear and homogeneous, since the unknown variable $u$ is raised the power of 1, and $u=0$ is a solution.
+    \item[(c)] $u_t - u_{xx} + uu_x = 0$
+
+    This is not linear but homogeneous, since the the unknown variable $u$ is raised not to the power of 1, but $u=0$ is a solution.
+    \item[(d)] $u_{tt} - u_{xx} + x^2 = 0$
+
+    This is linear but not homogeneous, since the unknown variable $u$ is raised the power of 1, but $u=0$ is not a solution.
+    \item[(e)] $iu_t - u_{xx} + u/x = 0$
+
+    This is linear and homogeneous, since the unknown variable $u$ is raised  power of 1, and $u=0$ is a solution.
+    \item[(f)] $u_x \left(1 + u_x^2\right)^{-1/2} + u_y \left(1 + u_y^2\right)^{-1/2} = 0$
+
+    This is not linear but homogeneous, since the the unknown variable $u$ is raised to not the power of 1, but $u=0$ is a solution.
+    \item[(g)] $u_x + e^y u_y = 0$
+
+    This is linear and homogeneous, since the unknown variable $u$ is not raised more than the power of 1, and $u=0$ is a solution.
+    \item[(h)] $u_t + u_{xxxx} + \sqrt{1 + u} = 0$
+
+    This is not linear and not homogeneous, since the unknown is not raised to the power of 1, and $u=0$ is not a solution. 
+\end{itemize}
+
+4. Show that the difference of two solutions of an inhomogeneous linear equation $\mathcal{L} u = g$ with the same $g$ is a solution of the homogeneous equation $\mathcal{L} u = 0$.
+\begin{proof}
+    let $v,w$ be some solutions of $\mathcal{L} u = g$. Then by definition, $\mathcal{L} v = g$ and $\mathcal{L} w = g$. If we subtract them, we have $\mathcal{L} v - \mathcal{L} w = g - g = 0$. By definition of a linear operator, $\mathcal{L} v - \mathcal{L} w = \mathcal{L}\paren{v-w}=0$. Therefore $v-w$ is a solution to $\mathcal{L} u = 0$.
+\end{proof}
+
+\newpage
+\text{11.} Verify that \( u(x, y) = f(x) g(y) \) is a solution of the PDE \( uu_{xy} = u_x u_y \), for all pairs of (differentiable) functions \( f \) and \( g \) of one variable.
+    \begin{proof}
+        Let$f(x) g(y)$ be any differentiable functions of $x,y$, and $u(x,y) = f(x)g(y)$. We can find the following
+        \[
+        u_{xy} = \pypx{^2}{x\partial y}u(x,y) = \pypx{}{y}f'(x)g(y) = f'(x)g'(y) 
+        \]
+        \[
+        u_x = f'(x)g(y) \quad u_y = f(x)g'(y)
+        \]
+        Then
+        \[
+        uu_{xy} = f(x) g(y)f'(x)g'(y)  =f'(x)g(y)f(x)g'(y) =  u_xu_y 
+        \]
+    \end{proof}
+
+12. Verify by direct substitution that
+\[
+u_n(x,y) =\sin(nx)\sinh(ny)
+\]
+is a solution of $\nabla^2 u = u_{xx} + u_{yy} = 0$ for every $n>0$.
+\begin{proof}
+    First we find $u_{xx}$
+    \[
+    u_{xx} = \partial_x \paren{n\cos(nx)\sinh(ny)} = -n^2\sin(nx)\sinh(ny)
+    \]
+    And then we find $u_{yy}$
+    \[
+    u_{yy} = \partial_y\paren{n\sin(nx)\cosh(ny)} = n^2\sin(nx)\sinh(ny)
+    \]
+    And we can see that
+    \[
+    u_{xx} + u_{yy} = 0
+    \]
+    Therefore $u_n(x,y) =\sin(nx)\sinh(ny)$ is a solution to this PDE. 
+\end{proof}
+
+\section{Section 1.2}
+1. Solve the PDE
+\[
+\begin{cases}
+    2u_t + 3u_x = 0\\
+    u(x,t=0) = \sin x
+\end{cases}
+\]
+We start by defining a change of variable
+\[
+t' = 2t + 3x \quad x' = 3t-2x
+\]
+And we can perform the following operation
+\[
+u_t = \pypx{u}{t} = \pypx{u}{t'}\pypx{t'}{t} + \pypx{u}{x'}\pypx{x'}{t} = 2u_{t'} + 3u_{x'}
+\]
+\[
+u_x = \pypx{u}{x} = \pypx{u}{x'}\pypx{x'}{t} + \pypx{u}{t'}\pypx{t'}{x} = 3u_{t'} - 2u_{x'}
+\]
+Therefore our original equation becomes
+\[
+2\paren{2u_{t'} + 3u_{x'}} + 3\paren{3u_{t'} - 2u_{x'}} = 0
+\]
+This simplifies to
+\[
+u_{t'} = 0
+\]
+We divided both side by $13$ since $13 \neq 0$. This means that the the function has no component of $t'$, therefore the general solution is $u(t,x) = A(x') = A(3t-2x)$. Now we use the initial value $u(x,t=0) = \sin x$ to find the particular solution.
+\[
+u(x,t=0) = A(-2x) = \sin x
+\]
+Let $\omega = -2x$, then we have $x = -\frac{\omega}{2}$
+\[
+A(\omega) = \sin \paren{\frac{\omega}{2}}
+\]
+And the particular solution is
+\[
+u(t,x) = \sin\paren{\frac{3t-2x}{2}}
+\]
+
+
+2. Solve the PDE for general solution
+\[
+3u_y + u_{xy} = 0
+\]
+Let $\nu = u_y$, we have
+\[
+3\nu + \nu_x = 0
+\]
+This has simplified to an ODE. First we can rewrite it as
+\[
+\dydx{\nu}{x} = -3 \nu
+\]
+And perform a separation of variable
+\[
+\frac{d\nu}{\nu} = -3dx
+\]
+Integrating both side with respect to $x$, we have
+\[
+\ln\abso{\nu} = -3x+C(y)
+\]
+Raising $e$ to RHS and LHS, and with some simplification, we have
+\[
+\nu = A(y)e^{-3x} \quad A(y) = \pm e^{C(y)}
+\]
+Since $\nu = u_y$, we can integrate both side with respect to $y$, and obtain
+\[
+u(x,y) = \paren{\int A(y)\;dy}e^{-3x}
+\]
+
+\end{document}

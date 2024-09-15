@@ -1,0 +1,298 @@
+\documentclass[12pt]{article}
+\pagestyle{empty}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{latexsym, epsfig, ulem, cancel, multicol, hyperref}
+\usepackage{graphicx, tikz, subfigure,pgfplots}
+\usepackage[margin=1in]{geometry}
+\setlength{\parindent}{0pt}
+\usepackage{multirow}
+\usepackage{mathtools}
+\usepackage{verbatim}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\setlength{\parskip}{1ex}
+
+\newcommand{\T}[0]{\top}
+\newcommand{\F}[0]{\bot}
+\newcommand{\liminfty}[1]{\lim_{#1 \to \infty}}
+\newcommand{\limzero}[1]{\lim_{#1 \to 0}}
+\newcommand{\limto}[1]{\lim_{#1}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\odd}[0]{\mathbb{Z} - 2\mathbb{Z}}
+\newcommand{\lineint}[1]{\int_{#1}}
+\newcommand{\pypx}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\divg}{\nabla \cdot}
+\newcommand{\curl}{\nabla \times}
+\newcommand{\dydx}[2]{\frac{d #1}{d #2}}
+\newcommand{\sqbkt}[1]{\left[ #1 \right]}
+\newcommand{\paren}[1]{\left( #1 \right)}
+\newcommand{\tribkt}[1]{\left< #1 \right>}
+\newcommand{\abso}[1]{\left|#1 \right|}
+\newcommand{\zero}{\{0\}}
+\newcommand{\then}{\rightarrow}
+\newcommand{\nonneg}{\Z^+ \cup \{0\}}
+\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+\newcommand{\union}[2]{\bigcup_{#1}^{#2}}
+\newcommand{\inter}[2]{\bigcap_{#1}^{#2}}
+\newcommand{\openclose}[1]{\left( #1 \right]}
+\newcommand{\closeopen}[1]{\left[ #1 \right)}
+\newcommand{\compo}[2]{#1 e^{i #2}}
+\newcommand{\laplase}{\bigtriangleup}
+\newcommand{\bra}[1]{\left< #1 \right|}
+\newcommand{\ket}[1]{\left| #1 \right>}
+\newcommand{\braket}[2]{\left< #1 \mid #2 \right>}
+\newcommand{\ketbra}[2]{\left| #1 \right> \left< #2 \right|}
+\newcommand{\ketpsit}{\ket{\psi(t)}}
+\newcommand{\ketphit}{\ket{\phi(t)}}
+\newcommand{\ham}{\mathbf{H}}
+\newcommand{\unx}{\hat{\mathbf{x}}}
+\newcommand{\uny}{\hat{\mathbf{y}}}
+\newcommand{\uns}{\hat{\mathbf{s}}}
+\newcommand{\unr}{\hat{\mathbf{r}}}
+\newcommand{\untheta}{\hat{\boldsymbol\theta}}
+\newcommand{\unphi}{\hat{\boldsymbol\phi}}
+
+\newcommand{\wsnumber}{1}
+\newcommand{\wstopic}{Vectors}
+\pgfplotsset{
+    every linear axis/.append style={
+       axis x line=center,
+       axis y line=center,
+       xlabel={$x$},
+       ylabel={$y$}
+    },
+    every axis plot/.append style={thick,mark=none}
+}
+\tikzset{
+    point/.style={circle,draw,fill,minimum width=0.3ex,inner sep=0pt,outer sep=0pt},
+    every label/.append style={black}
+}
+
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath, amssymb, amsthm, graphicx, hyperref}
+\usepackage{enumerate}
+\usepackage{fancyhdr}
+\usepackage{multirow, multicol}
+\usepackage{tikz}
+\pagestyle{fancy}
+\fancyhead[RO]{Dennis Li}
+\fancyhead[LO]{ODE Solution Look Up}
+\usepackage{comment}
+\newif\ifshow
+\showfalse
+
+\ifshow
+  \newenvironment{solution}{\textbf{Solution.}}{}
+\else
+  \excludecomment{solution}
+\fi
+
+\renewcommand{\thefootnote}{\fnsymbol{footnote}}
+\usepackage{comment}
+
+
+\newtheorem*{remark}{Remark}
+
+
+\begin{document}
+\begin{center}
+\ifshow
+  \textbf{\Large Ways to Solve ODE}\\
+\else
+  \textbf{\Large Ways to Solve ODE}\\
+\fi
+written by \\ Dennis Li\\
+\end{center}
+
+\hrule
+
+\vspace{0.2cm}
+
+\section{ODE solutions}
+It has a standard form
+\[
+\dydx{y}{x} + P(x)y = Q(x)
+\]
+\subsection{Integration Factor}
+If your ODE is in the standard form, we define an integration factor \textbf{I}.
+\begin{Large}
+    \[
+    \mathbf{I}(x) = e^{\int P(x)dx}
+    \]
+\end{Large}
+This solves your ODE with some extra manipulation. 
+\[
+\mathbf{I}(x)y = \int \mathbf{I}(x)Q(x)\;dx
+\]
+
+\subsection{Substitution}
+If your ODE looks like
+\[
+\dydx{y}{x} = f(Ax+By+C)
+\]
+Set $v = Ax+By+C$, and differentiate it with respect to $x$
+\[
+\dydx{v}{x} = A + B\dydx{y}{x}
+\]
+Therefore
+\[
+\dydx{y}{x} = \frac{1}{B}\paren{\dydx{v}{x}-A}
+\]
+Back substitute to the original ODE
+\[
+\frac{1}{B}\paren{\dydx{v}{x}-A} = f(v)
+\]
+With some manipulation, we have
+\[
+\dydx{v}{x} = Bf(v) + A
+\]
+And you can simply move stuff around to perform a separation of variable
+\[
+\frac{1}{Bf(v) + A}\; dv = dx
+\]
+And stuff are easy from here. 
+
+\subsection{Bernoulli Differential Equation}
+If your ODE looks like
+\[
+\dydx{y}{x}+ B(x)y = Q(x)y^n
+\]
+Do a substitution $u=y^{1-n}$, find the derivatives with respect to $x$, and stuff works out.
+\[
+\dydx{u}{x} = \paren{1-n}y^n\dydx{y}{x}
+\]
+Isolate $\dydx{y}{x}$ so you can substitute
+\[
+\dydx{y}{x} = \frac{1}{(1-n)y^n}\dydx{u}{x}
+\]
+And you can carry on from here.
+
+\subsection{Homogeneous of Degree $\alpha$}
+If you ODE looks like
+\[
+\dydx{y}{x} = f\paren{\frac{y}{x}}
+\]
+And the fraction on the right hand side looks something like this
+\[
+f\paren{\frac{y}{x}} = \frac{x^i + x^{a}y^{b}+y^n}{x^j + x^{c}y^{d}+y^m}
+\]
+As long the $x$ and the $y$ has the same power, or $a+b$ is the same as $i,j,m,n$, this ODE is homogeneous and you can make a substitution
+\[
+v = \frac{y}{x}
+\]
+And stuff works out, this becomes a separable ODE. 
+
+\subsection{Characteristic Equations}
+If your second order ODE is homogeneous and looks like this
+\[
+\dydx{^2y}{x^2} + b\dydx{y}{x}+ cy = 0
+\]
+You can use $y = Ae^{rx}$ to create the following characteristic equation
+\[
+r^2 + br + c = 0
+\]
+Solve this quadratic equation, and you will have two solutions. Say they are $r_1 = u$ and $r_2 = v$, your general solutions will be
+\[
+y_1 = e^{r_1 t} \quad y_2 = e^{r_2 t}
+\]
+And your solution will be a linear combination of these
+\[
+y_g = c_1 y_1 + c_2 y_2
+\]
+
+\subsubsection{Repeated Roots}
+If you get repeated roots, do following. First case, if 
+\[
+r_1 = r_2 = r_3 = u
+\]
+Your general solution will be
+\[
+u_g = c_1e^{ut} + c_2 te^{ut} + c_3 t^2 e^{ut}
+\]
+You just add a $t^{n-1}$ in front of the solution obtained from the characteristic equation. $n$ being the number of repeated roots. 
+
+\subsubsection{Repeated Roots of 0}
+Say if you have
+\[
+r^n = 0
+\]
+Your solution will be 
+\[
+y = c_1 + c_2t + c_3 t^2 + \ldots + c_n t^{n-1}
+\]
+These repeated roots can mix into regular roots, just do them according to your needs. 
+
+\subsubsection{Non-homogeneous}
+If unfortunately you are dealing with non-homogeneous ones like this
+\[
+\dydx{^2y}{x^2} + b\dydx{y}{x}+ cy = f(x)
+\]
+You will have a complimentary solution and a particular solution. The complimentary solution is the one you obtained as if it is homogeneous. To obtain the particular solution, you have do some modification to your preset and try again. Say, if you have
+\[
+\dydx{^2y}{x^2} + b\dydx{y}{x}+ cy = ce^{kt}
+\]
+Your trial solution will be $y_p = Ae^{kt}$. You will eventually get something that leads you to the particular solution. If you get a polynomial on the left, set up a general polynomial in the same degree. For example, if you have
+\[
+\dydx{^2y}{x^2} + b\dydx{y}{x}+ cy = ax^2 + bx +c
+\]
+Your trial solution will be $y_p = Ax^2 + Bx +C$. And you do the same thing to see what the values of $A,B,C$ are. If we have one of the complimentary solution on the left, you have to modify your trial the same way you would when you have repeated roots, make something like $y_p=Ate^{kt}$ 
+
+\subsection{Variation of Parameter}
+If your ODE looks like
+\[
+\dydx{^2y}{x^2} + P(x)\dydx{y}{x} + Q(x)y = f(x)
+\]
+Your Variation of Parameter will be
+\[
+u_1 = -\int \frac{y_2f(x)}{W}\; dx \quad u_2 = \int \frac{y_1 f(x)}{W}\; dx
+\]
+Where $y_1, y_2$ are the solution of the ODE treating it as Homogeneous ODE. Your Particular solution will be
+\[
+y_p = u_1y_1 + u_2y_2
+\]
+And $W$ is the Wronskian, defined as follows
+\[
+W = \abso{
+\begin{matrix}
+    y_1 & y_2\\
+    y_1' & y_2'
+\end{matrix}
+} = y_1y_2' - y_2y_1'
+\]
+
+\subsection{Euler's Equation}
+If your ODE looks like this
+\[
+t^2\dydx{^2y}{x^2} + \alpha t \dydx{y}{x} + \beta y = 0
+\]
+Then you can suppose the solution is $y=t^r$ and obtain the characteristic equation
+\[
+r^2 +(\alpha -1) r + \beta = 0
+\]
+Your solution will be
+\[
+y_c = c_1 t^{r_1} + c_2 t^{r_2}
+\]
+And if you somehow got an imaginary solution, say, something like
+\[
+y_1 = t^z \quad z \in \C
+\]
+Then you rewrite it like this
+\[
+y_1 = e^{z\ln t}
+\]
+Then find the real and the imaginary part of this solution, they will be 2 linear independent solution obtained from only 1 solution of the characteristic equation. 
+
+
+
+
+
+
+
+
+\end{document}
