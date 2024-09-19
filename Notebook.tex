@@ -462,8 +462,8 @@ It tells you how much of the function $f$ is oscillating with periodically with 
 
 Now we have learned the periodic representation of a periodic function. 
 
-\subsubsection{Example}
-If we have a square wave that is dfined as follows
+\subsubsection{L period solution}
+If we have a square wave that is defined as follows
 \[
 sq(x) = \begin{cases}
     1 & 0\leq x\leq \pi\\
@@ -491,55 +491,89 @@ if we would use the Euler's identity
 c_j = \frac{1}{2\pi j }\paren{\cos\paren{\pi j} - i\sin\paren{\pi j} - 1}
 \]
 And now we can throw it back to the original summation. We see that the series converges very slowly, but since the numerator of $c_j$ is periodic, it does converge conditionally. The reason why it converges so slowly is because of the massive jump of the square wave takes a bunch of sinusoidal functions to approximate. If the function were to be nicer, everything works out nicely. 
-
+\subsubsection{2l period solution}
+The initial value problem of the heat equation is given by
+\[
+\begin{cases}
+    u_t = \nu u_{xx} & t>0,\; 0\in\R \\
+    u(x,t=0)=u_i(x)\\
+    u_i(x+2l) = u_i(x) & \forall x\in \R
+\end{cases}
+\]
+We have solved it for $L$ period, now we want to solve it for $2L$ period. In this case, the formula would look like
+\[
+u(t,x) =\sum_{j=-\infty}^{\infty}c_j e^{ik_j x}e^{-\nu k_j^2 t} \quad k_j = \frac{j\pi}{l},\; j\in \Z
+\]
+Where the coefficient is
+\[
+c_j =\frac{1}{2l} \int_{-l}^{l}e^{-ik_jx}u_i(x)\,dx
+\]
+We have obtained the solution to heat equation. 
 
 \section{Fourier Series}
-The goal is to approximate some arbitrary function with a bunch of sines and cosines. We state that any function can be represented as
+If we would look at the initial condition, or $t=0$ situation of the heat equation, we have
 \[
-f(x) = \sum A_n\cos\paren{\frac{n\pi x}{l}} + \sum B_n\sin\paren{\frac{n\pi x}{l}}
+u_i(x) = \sum_{j=-\infty}^{\infty} c_je^{ik_j x}
 \]
-We assumes it converges and this stuff just works. 
+Here, $j$ is the wave number, of the amount of wave that fits into a period. We now have a powerful tool to represent a general function with an infinite series of oscillating functions. 
 
+$c_j$ tells you how much the initial function looks like the basic wave $e^{ik_j x}$. It is just a different  way to represent the initial function, that is why it sometimes is denoted as $\hat{f}_j$.
+
+Beyond the time $t=0$, if we would like to see what the function looks like at $t=t_0$, a fixed time stamp, it still behaves similarly. Its just that we have some extra parameter to describe what the function looks like.
 \[
-\int_{-L}^{L} \cos\paren{\frac{n\pi x}{L}}\cos\paren{\frac{m\pi x}{L}} \; dx = \begin{cases}
-    2L & n=m\\
-    L & n = m\neq 0\\
-    0 & n\neq m
-\end{cases}
+u(t_0,x) =\sum_{j=-\infty}^{\infty}\paren{c_je^{-\nu k_j^2 t_0}}  e^{ik_j x}
+\]
+We see that if $t \neq 0$, we have an extra $e^{-t}$ term to help the sequence converge. The summation for the initial function converges very slowly, and is hard to approximate. But as time evolves, it almost instantaneously becomes smoother, as seen by this extra coefficient that decays exponentially very quickly. This helps the series converges much faster than the initial case. This is the property of the diffusion equation, and it reflects the physical behavior of diffusion. 
+
+Think of this physically as a copper wire that is heated regionally, and then contact it with another piece of copper. The heat difference at contact is a clear boundary, like a square wave function, but immediately after contact, the heat diffuses and the curve becomes completely continuous and smooth.
+
+Another important fact about this series is that the convergence is uniform, meaning if you take a finite sum of terms, then the error is uniformly distributed across all $x$. To analyze error in discontinuity, we conduct the following
+\[
+f_N(x) =  \sum_{j=-N}^{N} c_je^{i k_j x} \rightarrow \frac{1}{2}\paren{f(x+\delta)+f(x-\delta)}
+\]
+It is basically taking the middle point of the discontinuous junction. 
+
+We notice that we have an imaginary term in our Fourier series. We started from a real function and is suppose to end up in the real world. What do we do to fix this problem? Apparently both $c_j\in C$ and $e^{i}\in\C$. Since the result is very likely to be real, we should see the imaginary part  in the product of these term goes away somehow. Let's take a look. 
+
+If we take a look at $-j$, we have
+\[
+c_{-j} =\frac{1}{2l} \int_{-l}^{l}e^{ik_jx}u_i(x)\,dx
+\]
+But this is actually the conjugate of the original integrand.
+\[
+c_{-j} =\frac{1}{2l} \int_{-l}^{l}\overline{\paren{e^{-ik_jx}u_i(x)}}\,dx = \overline{c_j}
+\]
+This is possible because $u(x)$ is real. We can write out the original sum into the positive and negative components. 
+\[
+c_j = c_0 + \sum_{j=1}^{\infty}c_je^{-ik_jx} + \sum_{j=1}^{\infty}c_je^{ik_jx}
+\]
+But we have a complex number added to its conjugate. The imaginary part cancels and leaving only the real part. And obviously $c_0$ is real, since $c_0$ is
+\[
+c_0 = \frac{1}{2l}\int_{-l}^{l}u_i(x)\,dx
+\]
+And this has showed that $c_j \in \R$. And notice that $c_0$ is actually the average heat distribution in the period $2l$. Now we look at the original sum.
+\[
+u_i(x) = \sum_{j=-\infty}^{\infty} c_je^{ik_j x} 
+\]
+Just as before, we break it into two parts
+\[
+u(x) = \sum_{j=1}^{\infty} c_je^{ik_j x} + \sum_{j=1}^{\infty} c_je^{-ik_j x}
+\]
+And we have showed that $c_j \in \R$, we can use the same argument to say that $u_i(x)$ will also be real. And if we would expand it with Euler's identity, and decompose them into individual component of $c_j$, we have the \textit{real} form of the Fourier series
+\[
+a_0 = c_0 = \frac{1}{2l}\int_{-l}^l u_i(x)\,dx
 \]
 \[
-\int_{-L}^{L} \sin\paren{\frac{n\pi x}{L}}\sin\paren{\frac{m\pi x}{L}} \;dx = \begin{cases}
-    L & n = m\\
-    0 & n\neq m
-\end{cases}
+a_j = \frac{1}{l}\int_{-l}^{l}\cos\paren{ k_j x }u_i(x)\,dx
 \]
 \[
-\int_{-L}^{L} \sin\paren{\frac{n\pi x}{L}}\cos\paren{\frac{m\pi x}{L}} \dx =  0
+b_j = \frac{1}{l}\int_{-l}^{l}\sin \paren{k_j x }u_i(x)\,dx
 \]
-We arrive at
+These are the coefficients of the series, and the original series is
 \[
-\int_{-L}^{L} f(x) \cos\paren{\frac{m\pi x}{L}}\; dx = \int_{-L}^{L} \cos\paren{\frac{n\pi x}{L}}\cos\paren{\frac{m\pi x}{L}} \; dx + 0
+u_i(x) = a_0 + \sum_{j=1}^{\infty} a_j\cos k_ix +b_j\sin k_i x
 \]
-And we have
-\[
-\int_{-L}^{L} f(x) \cos\paren{\frac{m\pi x}{L}}\; dx = \begin{cases}
-    A_m(2L) & n=m-0\\
-    A_m(L) & n=m\neq 0
-\end{cases}
-\]
-And we have to find the coefficient $A_m$
-\[
-A_m = \frac{1}{L}\int_{-L}^{L}f(x)\cos\paren{\frac{m\pi x}{L}} \; dx 
-\]
-Where $m\in\nonneg$
-\[
-B_m = \frac{1}{L}\int_{-L}^{L}f(x)\sin\paren{\frac{n\pi x}{L}} \; dx 
-\]
-Where $n \in \nonneg$
-\[
-A_0 = \frac{1}{2L}\int_{-L}^{L} f(x) \; dx 
-\]
-This solution defines an oscillation on the complex plane. The
+Now we have the original Fourier series. The imaginary form is in fact more powerful. But it is a personal choice really. Do remember they are, as a matter of fact, equivalent. 
 
 
 
