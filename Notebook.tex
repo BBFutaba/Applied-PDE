@@ -380,28 +380,37 @@ After simplification, we have
 \]
 Substitute it back in, we have
     \[
-    u(x,) = e^{i(rx+i\nu k^2 t)}
+    u(x,) = e^{i(kx+i\nu k^2 t)}
     \]
 Therefore our final solution to this equation is
 \begin{large}
     \[
-    u(x,t;k) = e^{ikr}e^{-\nu k^2 t} \quad \forall k \in \C
+    u(x,t;k) = e^{ikx}e^{-\nu k^2 t} \quad \forall k \in \C
     \]
 \end{large}
 How do we interpret this solution. We can first analyze what happens if $k \in \C - \R$. If $k$ has imaginary component, the function either blows up at $-\infty$ or $\infty$. Therefore we only accept real values of $k$. And the actual solution that makes sense is
 \begin{large}
     \[
-    u(x,t;k) = e^{ikr}e^{-\nu k^2 t} \quad \forall k \in \R
+    u(x,t;k) = e^{ikx}e^{-\nu k^2 t} \quad \forall k \in \R
     \]
 \end{large}
-We now have a collection of solutions that is bounded in space and decays in time. We can also define a special case where we can imagine something diffusing in a closed loop.
+We now have a collection of solutions that is bounded in space and decays in time. We can also define a special case where we can imagine something diffusing in a closed loop, or a periodic boundary condition.
 \[
 u(x+L,t) = u(x,t) \quad L = 2\pi n
 \]
-Now we are interested in the periodic behaviour of the function. In this case
+Now we are interested in the periodic behaviour of the function. We know that
+\[
+e^{ik(x+L)} = e^{ikx}
+\]
+It is easy to see that the function has a period of $2\pi j$, where $j \in \Z$. Therefore $kL = 2\pi j$
 \[
 e^{ikL} = 1 \quad k_j = \frac{2\pi j}{L}
 \]
+If we would look like the rectangular form, we have
+\[
+e^{\frac{2\pi i}{L}jx} = \cos\paren{\frac{2\pi}{L}jx} + i\sin\paren{\frac{2\pi}{L}jx}
+\]
+The parameter $j$ determines how many wave you are shuffing into a period of $L$, and $j$ is called the wave number. 
 
 Our most general solution for the diffusion equation is
 \begin{large}
@@ -412,9 +421,76 @@ Our most general solution for the diffusion equation is
 For our periodic case, we have one of the term equals to 1, so we can simplify it
 \begin{large}
     \[
-u_L(x) = \sum_{j=-\infty}^{\infty}c_j e^{ik_j x}, \quad k_j = \frac{2\pi j}{L}
+u_{L}(x) = \sum_{j=-\infty}^{\infty}c_j e^{ik_j x}, \quad k_j = \frac{2\pi j}{L}
 \]
 \end{large}
+We have to choose $c_j$ carefully such that the series converges, maybe with something like $c_j = \frac{1}{j^2}$. For this to have a specific solution, our initial condition has to provide an $L$ periodic function for all $x$. Our initial condition can be given as
+\[
+u(x,t=0) = u_i(x) = \sum_{j=-\infty}^{\infty}c_j e^{ik_j x}
+\]
+So how do we figure out $c_j$. We know that the following equality has to establish
+\[
+\sum_{j=\infty}^{\infty} c_j \int_{0}^{L}\paren{e^{i(k_j-k_n)x}}\,dx
+\]
+This then gives us
+\[
+\sum_{j=\infty}^{\infty} c_j  \paren{\left.\frac{e^{i(k_j-k_n)x}}{i(k_j-k_n)}\right|_{0}^L}
+\]
+When $j\neq n$, we end up with $e^{2\pi(j-m)}-1$ in the numerator, this means that it is always $0$. So we should investigate what $j=n$ sees. We have the following
+\[
+c_j \int_{0}^{L}\paren{e^{i(k_j-k_n)x}}\,dx = c_j \int_{0}^{L}1\,dx = c_nL
+\]
+Now we can solve $c_n$
+\[
+c_n = \frac{1}{L}\int_0^L e^{ik_nx}u_i(x)\,dx
+\]
+Therefore, if our initial function is $L$ periodic and smooth, our solution can be written as
+\[
+f(x) = \sum_{j=-\infty}^\infty e^{ik_jx}c_j, k_j = \frac{2\pi j}{L}
+\]
+Where
+\[
+c_j = \frac{1}{L}\int_0^L e^{ik_jx}(\lambda)\,dx
+\]
+This is the Fourier series of a function. And we have the full complex form the Fourier series. The sine and cosine one is the \textit{real} form of the Fourier series. 
+
+We can rewrite $c_j$ with the following notation
+\[
+\hat{f}_j = \frac{1}{L}\int_0^L e^{ik_jx}(\lambda)\,dx
+\]
+It tells you how much of the function $f$ is oscillating with periodically with $j$ waves. It is another representation of the function that measures how much its oscillating. 
+
+Now we have learned the periodic representation of a periodic function. 
+
+\subsubsection{Example}
+If we have a square wave that is dfined as follows
+\[
+sq(x) = \begin{cases}
+    1 & 0\leq x\leq \pi\\
+    0 & \pi < x < 2\pi
+\end{cases}
+\]
+We can represent it as
+\[
+sq(x) = \sum_{j=-\infty}^\infty e^{ijx}c_j \quad k_j = \frac{2\pi j}{2\pi}
+\]
+And we have obtain the coefficient
+\[
+c_j = \frac{1}{2\pi}\int_0^\pi e^{-ijx}\,dx
+\]
+Carry out, we have
+\[
+c_j = \frac{1}{2\pi}\paren{\left. \frac{e^{-ijx}}{-ij}\right|_0^\pi}
+\]
+This gives you 
+\[
+c_j = \frac{i}{2\pi j}\paren{e^{-ij\pi}-1}
+\]
+if we would use the Euler's identity
+\[
+c_j = \frac{1}{2\pi j }\paren{\cos\paren{\pi j} - i\sin\paren{\pi j} - 1}
+\]
+And now we can throw it back to the original summation. We see that the series converges very slowly, but since the numerator of $c_j$ is periodic, it does converge conditionally. The reason why it converges so slowly is because of the massive jump of the square wave takes a bunch of sinusoidal functions to approximate. If the function were to be nicer, everything works out nicely. 
 
 
 \section{Fourier Series}
@@ -463,6 +539,7 @@ Where $n \in \nonneg$
 \[
 A_0 = \frac{1}{2L}\int_{-L}^{L} f(x) \; dx 
 \]
+This solution defines an oscillation on the complex plane. The
 
 
 
